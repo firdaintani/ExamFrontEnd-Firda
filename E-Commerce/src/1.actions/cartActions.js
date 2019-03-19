@@ -14,7 +14,7 @@ export const addToCart=(newProduct)=>{
            var quantity = res.data[0].qty+newProduct.qty
             Axios.put(urlApi+'/cart/'+res.data[0].id,{...newProduct,qty:quantity})
             .then((res)=>{
-                swal("Done!", "Telah dimasukkan ke keranjang", "success")
+                swal("Sukses!", "Produk telah dimasukkan ke keranjang", "success")
                 Axios.get(urlApi+'/cart?id_user='+newProduct.id_user)
                 .then((res)=>{
                     if(res.data.length>0){

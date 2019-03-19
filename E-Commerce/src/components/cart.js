@@ -149,12 +149,14 @@ class CartBs extends React.Component{
                 <td><img width={'50px'} src={val.img}></img></td>
                 <td>{val.nama}</td>
                 <td>Rp. {val.harga} </td>
-                <td>{val.discount}%</td>
+                { val.discount===0 ? <td>-</td>
+                :
+                <td>{val.discount}% </td>
+                
+                }
                 <td>{val.qty}</td>
-               
-                    <td>{(val.harga * ((100-val.discount)/100))*val.qty}</td>
+               <td>{(val.harga * ((100-val.discount)/100))*val.qty}</td>
         
-                   
                 <td>
                     <input type='button' className='btn btn-success' value='Edit' onClick={()=>this.handleEditBtn(val.id,val.qty)} />
                     <input type='button' className='btn btn-danger' value='Delete' onClick={()=>this.handleDeleteBtn(val)} />

@@ -137,6 +137,32 @@
       ],
       "totalBayar": 134000,
       "id": 2
+    },
+    {
+      "id_user": 1,
+      "tanggal": "19 Maret 2019 14:24",
+      "item": [
+        {
+          "nama": "Kaos Polos Hitam",
+          "harga": 20000,
+          "discount": 10,
+          "img": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+          "id_product": 1,
+          "qty": 2,
+          "id_transaksi": 1
+        },
+        {
+          "nama": "The Dark Knight",
+          "harga": 40000,
+          "discount": 0,
+          "img": "https://store.primagraphia.co.id/wp-content/uploads/2014/08/konsep-kaos.jpg",
+          "id_product": 2,
+          "qty": 1,
+          "id_transaksi": 2
+        }
+      ],
+      "totalBayar": 76000,
+      "id": 3
     }
   ],
   "deleteTemp": [
@@ -150,6 +176,17 @@
       "qty": 2,
       "id_cart": 1,
       "id": 1
+    },
+    {
+      "nama": "Kaos Polos Hitam",
+      "harga": 20000,
+      "discount": 10,
+      "img": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id_product": 1,
+      "id_user": 1,
+      "qty": 1,
+      "id_cart": 2,
+      "id": 2
     }
   ]
 }
