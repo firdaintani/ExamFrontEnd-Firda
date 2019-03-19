@@ -3,6 +3,9 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import { urlApi } from './../support/urlApi'
 import './../support/css/product.css'
+import{connect} from 'react-redux'
+import {addToCart} from '../1.actions'
+import swal from 'sweetalert'
 
 class ProductList extends React.Component{
     state = {listProduct : []}
@@ -14,6 +17,28 @@ class ProductList extends React.Component{
         axios.get(urlApi + '/products')
         .then((res) => this.setState({listProduct : res.data}))
         .catch((err) => console.log(err))
+    }
+
+    addToCart=(val)=>{
+        // alert('masuk')
+        var qty = 1
+        // var note = this.refs.note.value
+        if(isNaN(qty)===true ){
+            swal('Warning',"Jumlah barang harus diisi","warning")
+        }
+        
+    else{
+        var newObj={}
+
+        newObj={...val, id_product:val.id,id_user : this.props.id, qty:qty }
+        delete newObj.id
+        delete newObj.deskripsi
+        delete newObj.category
+        
+        this.props.addToCart(newObj)
+
+    }
+        
     }
     renderProdukJsx = () => {
         var jsx = this.state.listProduct.map((val) => {
@@ -39,7 +64,7 @@ class ProductList extends React.Component{
                     }
 
                     <p style={{display:'inline' , marginLeft:'10px',fontWeight:'500'}}>Rp. {val.harga - (val.harga*(val.discount/100))}</p>
-                    <input type='button' className='d-block btn btn-primary' value='Add To Cart' />
+                    <input type='button' className='d-block btn btn-primary' value='Add To Cart' onClick={()=>this.addToCart(val)}  />
                     </div>
                 </div>
             )
@@ -58,7 +83,14 @@ class ProductList extends React.Component{
     }
 }
 
-export default ProductList
+const mapStateToProps=(state)=>{
+    return {
+        id: state.user.id
+    }
+}
+
+
+export default connect(mapStateToProps,{addToCart})(ProductList)
 
 
 

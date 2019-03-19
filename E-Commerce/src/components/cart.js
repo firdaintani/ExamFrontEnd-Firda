@@ -5,6 +5,8 @@ import {urlApi} from '../support/urlApi'
 import cookie from 'universal-cookie'
 import {deleteCartItem,updateCart,payCart} from '../1.actions'
 import swal from 'sweetalert';
+import {Link} from 'react-router-dom'
+import PageNotFound from './pageNotFound'
 // import {Table} from 'reactstrap'
 
 const objCookie = new cookie()
@@ -105,10 +107,11 @@ class CartBs extends React.Component{
     cancelBtn=()=>{
         this.setState({selectedEdit:-1})
     }
+
     getDataCart=()=>{
         
       
-        this.state.cart.map((val)=>{})
+        // this.state.cart.map((val)=>{})
 
         var cartData= this.state.cart.map((val)=>{
             
@@ -118,24 +121,18 @@ class CartBs extends React.Component{
                    
                     <td><img width={'50px'} src={val.img}></img></td>
                     <td>{val.nama}</td>
-                    <td>
-                    { val.discount>0 ? 
-                       <p style={{textDecoration:'line-through',color:'red', display:'inline'}}>Rp.{val.harga}</p>
-                        : null
-                    }
-                    <p style={{display:'inline',marginLeft:'10px',fontWeight:500}}>Rp. {val.harga * ((100-val.discount)/100)}</p>
-                        
-                    </td>
+                    
+                    <td>{val.discount}%</td>
+                    <td>Rp. {val.harga}</td>
                     <td><input type="button" value='-' onClick={this.kurang}></input>
                 <span style={{margin:'0 40px'}}>{this.state.qty}</span>
                 <input type="button" value='+' onClick={this.tambah}></input>
-</td>
-                    {val.discount>0?
+                        </td>
+                    
                         <td>{(val.harga * ((100-val.discount)/100))*val.qty}</td>
             
-                        :
-                        <td>{val.harga*val.qty}</td>
-                    }
+                        
+                   
                     <td>
                         <input type='button' className='btn btn-success' value='Save' onClick={()=>this.saveBtn(val)} />
                         <input type='button' className='btn btn-danger' value='Cancel' onClick={this.cancelBtn} />
@@ -151,21 +148,13 @@ class CartBs extends React.Component{
                    
                 <td><img width={'50px'} src={val.img}></img></td>
                 <td>{val.nama}</td>
-                <td>
-                { val.discount>0 ? 
-                   <p style={{textDecoration:'line-through',color:'red', display:'inline'}}>Rp.{val.harga}</p>
-                    : null
-                }
-                <p style={{display:'inline',marginLeft:'10px',fontWeight:500}}>Rp. {val.harga * ((100-val.discount)/100)}</p>
-                    
-                </td>
+                <td>Rp. {val.harga} </td>
+                <td>{val.discount}%</td>
                 <td>{val.qty}</td>
-                {val.discount>0?
+               
                     <td>{(val.harga * ((100-val.discount)/100))*val.qty}</td>
         
-                    :
-                    <td>{val.harga*val.qty}</td>
-                }
+                   
                 <td>
                     <input type='button' className='btn btn-success' value='Edit' onClick={()=>this.handleEditBtn(val.id,val.qty)} />
                     <input type='button' className='btn btn-danger' value='Delete' onClick={()=>this.handleDeleteBtn(val)} />
@@ -258,18 +247,22 @@ undoDelete=()=>{
 
 
     render(){
+        if(this.props.username!==''){
         return (
+            
             <div className='container'>
-            { this.state.deleteTemp.length>0?
+            {/* { this.state.deleteTemp.length>0?
             <input type='button' value='Undo Delete' className='btn btn-primary' onClick={this.undoDelete}></input>
             : null
-            }   
+            }    */}
             {this.state.cart.length>0 ?
+            <div>
                 <table className='table'>
                     <thead>
                     <tr>
                     <th colSpan={2}>Produk</th>
                         <th>Harga Satuan</th>
+                        <th>Discount</th>
                         <th>Kuantitas</th>
                         <th>Total Harga</th>
                         <th>Aksi</th>
@@ -282,27 +275,42 @@ undoDelete=()=>{
                
                             {/* {this.calculateTotal()} */}
           
-                         <tr>
-                            <td colSpan={4} style={{textAlign:"right"}}>Total</td>
-                            <td>{this.calculateTotal()}</td>
-                            <td> <input type='button' className='btn btn-danger' value="Pay" onClick={this.btnPay}/></td>
-                        </tr>
+                         
                           
-                      
+                           
 
                     </tbody>
                 </table>
+
+                <div className='row d-flex justify-content-center'>
+                    <div className='col' style={{textAlign:"center"}}>
+                    <input type='button' className='btn btn-primary' style={{marginRight:'10px'}} value="Checkout Now" onClick={this.btnPay}/>
+                    <Link to='/product'>
+                    <input type='button' className='btn btn-success' value="Continue Shopping"/></Link>
+                    <br></br>
+                    <h2 style={{textAlign:"center"}}>Total Belanja : Rp. {this.calculateTotal()}</h2>
+                    
+
+                    </div>
+                </div>
+                </div >
                   :
-                  <h2>Data Cart Kosong</h2>}
+                  <div className='d-flex justify-content-center'>
+                  <Link to='/product'><input type='button' value='Your cart is empty. Continue shopping' className='btn btn-success d-flex justify-content-center' ></input></Link>
+                  </div>
+                  }
+                  
             </div>
         
         )
+        }return <PageNotFound/>
     }
 }
 const mapStateToProps=(state)=>{
     return {
         id : state.user.id,
-        cart : state.cart.cart
+        cart : state.cart.cart,
+        username : state.user.username
     }
 }
 export default connect(mapStateToProps,{deleteCartItem,updateCart,payCart})(CartBs)
