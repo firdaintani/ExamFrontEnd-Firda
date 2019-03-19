@@ -35,7 +35,9 @@ class History extends React.Component{
                 <td>{index+1}</td>
                 <td>{val.nama}</td>
                 <td>Rp. {val.harga * ((100-val.discount)/100)}</td>
+                { val.discount===0? <td>-</td> :
                 <td>{val.discount}</td>
+                }
                 <td>{val.qty}</td>
                 <td>Rp. {(val.harga * ((100-val.discount)/100))*val.qty}</td>
                 </tr>

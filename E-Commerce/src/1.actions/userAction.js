@@ -148,3 +148,8 @@ export const loginWithGoogle = (email) => {
 
 
 
+export const cekCookie=()=>{
+    return {
+        type: 'COOKIE_CHECKED'
+    }
+}

@@ -14,7 +14,7 @@ import HistoryDetail from './components/historyDetail'
 import { Route ,withRouter, Switch } from 'react-router-dom' 
 import {connect} from 'react-redux'
 import cookie from 'universal-cookie'
-import { keepLogin , keepCart} from './1.actions'
+import { keepLogin , keepCart,cekCookie} from './1.actions'
 import './App.css';
 
 // withRouter => Untuk tersambung ke Reducer dengan connect, 
@@ -26,6 +26,7 @@ class App extends Component {
     var terserah = objCookie.get('userData')
     if(terserah !== undefined){
       this.props.keepLogin(terserah)
+      this.props.cekCookie()
     }
     var arrCookie = objCookie.get('userDataCart')
     if(arrCookie!==undefined){
@@ -34,6 +35,7 @@ class App extends Component {
   }
   
   render() {
+    // if(this.props.cookie){
     return (
       <div>
           <Navbar/>
@@ -53,7 +55,14 @@ class App extends Component {
           </ScrollToTop>
       </div>
     );
+  // } else {return <div>Loading</div>}
+} 
+}
+
+const mapStateToProps=(state)=>{
+  return {
+    cookie: state.user.cookie
   }
 }
 
-export default withRouter(connect(null , {keepLogin,keepCart})(App));
+export default withRouter(connect(mapStateToProps, {keepLogin,keepCart,cekCookie})(App));
