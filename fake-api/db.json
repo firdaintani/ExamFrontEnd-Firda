@@ -72,7 +72,18 @@
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREPOGo_ydVkhFaDmvBQTO4XrSIePibNXeuWFsXdwSID8VjrGSS7w"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "nama": "Epic ComeBack",
+      "harga": 30000,
+      "discount": 20,
+      "img": "https://ecs7.tokopedia.net/img/product-1/2018/7/27/27345219/27345219_c9909d3f-8e63-4581-a242-63995611577d_1000_1000.jpg",
+      "id_product": 3,
+      "id_user": 0,
+      "qty": 1,
+      "id": 1
+    }
+  ],
   "history": [
     {
       "id_user": 1,

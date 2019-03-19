@@ -64,7 +64,11 @@ class ProductList extends React.Component{
                     }
 
                     <p style={{display:'inline' , marginLeft:'10px',fontWeight:'500'}}>Rp. {val.harga - (val.harga*(val.discount/100))}</p>
+               { this.props.username !== '' ? 
                     <input type='button' className='d-block btn btn-primary' value='Add To Cart' onClick={()=>this.addToCart(val)}  />
+                :  <Link to='/login'><input type='button' className='d-block btn btn-primary' value='Add To Cart' /></Link>
+                 
+                }
                     </div>
                 </div>
             )
@@ -85,7 +89,8 @@ class ProductList extends React.Component{
 
 const mapStateToProps=(state)=>{
     return {
-        id: state.user.id
+        id: state.user.id,
+        username : state.user.username
     }
 }
 
